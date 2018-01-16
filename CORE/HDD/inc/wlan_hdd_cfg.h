@@ -2904,6 +2904,12 @@ This feature requires the dependent cfg.ini "gRoamPrefer5GHz" set to 1 */
 #define CFG_DISABLE_SCAN_DURING_SCO_DEFAULT (0)
 
 
+/* Value for ENABLE_POWERSAVE_OFFLOAD*/
+#define CFG_ENABLE_POWERSAVE_OFFLOAD_NAME       "gEnablePowerSaveOffload"
+#define CFG_ENABLE_POWERSAVE_OFFLOAD_MIN        (1)
+#define CFG_ENABLE_POWERSAVE_OFFLOAD_MAX        (2)
+#define CFG_ENABLE_POWERSAVE_OFFLOAD_DEFAULT    (1)
+
 /*--------------------------------------------------------------------------- 
   Type declarations
   -------------------------------------------------------------------------*/ 
@@ -3467,6 +3473,8 @@ typedef struct
    v_BOOL_t                    sap_internal_restart;
    v_BOOL_t                    disable_scan_during_sco;
    uint8_t                     enable_rtt_support;
+   uint32_t                    enable_power_save_offload;
+
 } hdd_config_t;
 
 /*--------------------------------------------------------------------------- 

@@ -3762,6 +3762,13 @@ REG_VARIABLE( CFG_EXTSCAN_ENABLE, WLAN_PARAM_Integer,
                CFG_DISABLE_SCAN_DURING_SCO_DEFAULT,
                CFG_DISABLE_SCAN_DURING_SCO_MIN,
                CFG_DISABLE_SCAN_DURING_SCO_MAX ),
+
+  REG_VARIABLE(CFG_ENABLE_POWERSAVE_OFFLOAD_NAME, WLAN_PARAM_Integer,
+                hdd_config_t, enable_power_save_offload,
+                VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
+                CFG_ENABLE_POWERSAVE_OFFLOAD_DEFAULT,
+                CFG_ENABLE_POWERSAVE_OFFLOAD_MIN,
+                CFG_ENABLE_POWERSAVE_OFFLOAD_MAX),
 };
 
 /*
@@ -4331,6 +4338,11 @@ static void print_hdd_cfg(hdd_context_t *pHddCtx)
   VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_INFO_HIGH,
         "Name = [gEnableSapInternalRestart] Value = [%u] ",
          pHddCtx->cfg_ini->sap_internal_restart);
+
+    VOS_TRACE(VOS_MODULE_ID_HDD, VOS_TRACE_LEVEL_INFO_HIGH,
+            "Name = [%s] Value = [%u] ",
+            CFG_ENABLE_POWERSAVE_OFFLOAD_NAME,
+            pHddCtx->cfg_ini->enable_power_save_offload);
 }
 
 
@@ -5959,6 +5971,14 @@ v_BOOL_t hdd_update_config_dat( hdd_context_t *pHddCtx )
       hddLog(LOGE, "Could not pass on WNI_CFG_DISABLE_SCAN_DURING_SCO to CCM");
    }
 
+   if(ccmCfgSetInt(pHddCtx->hHal, WNI_CFG_ENABLE_POWERSAVE_OFFLOAD,
+                   pConfig->enable_power_save_offload, NULL,
+                   eANI_BOOLEAN_FALSE)
+       ==eHAL_STATUS_FAILURE)
+   {
+      fStatus = FALSE;
+      hddLog(LOGE, "Couldn't pass WNI_CFG_ENABLE_POWERSAVE_OFFLOAD to CCM");
+   }
    return fStatus;
 }
 
