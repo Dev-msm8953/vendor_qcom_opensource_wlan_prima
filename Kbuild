@@ -13,40 +13,34 @@ ifeq ($(KERNEL_BUILD),1)
 	WLAN_ROOT := drivers/staging/prima
 endif
 
-ifeq ($(KERNEL_BUILD), 0)
-# These are configurable via Kconfig for kernel-based builds
-# Need to explicitly configure for Android-based builds
+# Flag to enable BlueTooth AMP feature
+CONFIG_PRIMA_WLAN_BTAMP := n
 
-#Flag to enable BlueTooth AMP feature
-    CONFIG_PRIMA_WLAN_BTAMP := n
-
-#Flag to enable Legacy Fast Roaming(LFR)
-    CONFIG_PRIMA_WLAN_LFR := y
+# Flag to enable Legacy Fast Roaming(LFR)
+CONFIG_PRIMA_WLAN_LFR := y
 
 #JB kernel has PMKSA patches, hence enabling this flag
-    CONFIG_PRIMA_WLAN_OKC := y
+CONFIG_PRIMA_WLAN_OKC := y
 
 # JB kernel has CPU enablement patches, so enable
-    CONFIG_PRIMA_WLAN_11AC_HIGH_TP := y
+CONFIG_PRIMA_WLAN_11AC_HIGH_TP := y
 
 #Flag to enable TDLS feature
-    CONFIG_QCOM_TDLS := y
+CONFIG_QCOM_TDLS := y
 
-#Flag to enable Fast Transition (11r) feature
-    CONFIG_QCOM_VOWIFI_11R := y
+# Flag to enable Fast Transition (11r) feature
+CONFIG_QCOM_VOWIFI_11R := y
 
-#Flag to enable Protected Managment Frames (11w) feature
+# Flag to enable Protected Managment Frames (11w) feature
 ifneq ($(CONFIG_PRONTO_WLAN),)
     CONFIG_WLAN_FEATURE_11W := y
-    endif
+endif
 
-#Flag to enable new Linux Regulatory implementation
-    CONFIG_ENABLE_LINUX_REG := y
+# Flag to enable new Linux Regulatory implementation
+CONFIG_ENABLE_LINUX_REG := y
 
-#Flag to enable offload packets feature
-    CONFIG_WLAN_OFFLOAD_PACKETS := y
-
-    endif
+# Flag to enable offload packets feature
+CONFIG_WLAN_OFFLOAD_PACKETS := y
 
 # To enable CONFIG_QCOM_ESE_UPLOAD, dependent config
 # CONFIG_QCOM_ESE must be enabled.
