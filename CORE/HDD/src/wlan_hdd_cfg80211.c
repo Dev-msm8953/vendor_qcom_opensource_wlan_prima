@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2012-2017 The Linux Foundation. All rights reserved.
+ * Copyright (C) 2020 XiaoMi, Inc.
  *
  * Previously licensed under the ISC license by Qualcomm Atheros, Inc.
  *
@@ -10686,7 +10687,6 @@ int __wlan_hdd_cfg80211_change_iface( struct wiphy *wiphy,
     struct wireless_dev *wdev;
     hdd_adapter_t *pAdapter = WLAN_HDD_GET_PRIV_PTR( ndev );
     hdd_context_t *pHddCtx;
-    hdd_adapter_t  *pP2pAdapter = NULL;
     tCsrRoamProfile *pRoamProfile = NULL;
     eCsrRoamBssType LastBSSType;
     hdd_config_t *pConfig = NULL;
@@ -10845,25 +10845,6 @@ int __wlan_hdd_cfg80211_change_iface( struct wiphy *wiphy,
                 if (NL80211_IFTYPE_P2P_GO == type)
                 {
                     wlan_hdd_cancel_existing_remain_on_channel(pAdapter);
-                }
-                if (NL80211_IFTYPE_AP == type)
-                {
-                     /* As Loading WLAN Driver one interface being created for p2p device
-                      * address. This will take one HW STA and the max number of clients
-                      * that can connect to softAP will be reduced by one. so while changing
-                      * the interface type to NL80211_IFTYPE_AP (SoftAP) remove p2p0
-                      * interface as it is not required in SoftAP mode.
-                      */
-
-                    // Get P2P Adapter
-                    pP2pAdapter = hdd_get_adapter(pHddCtx, WLAN_HDD_P2P_DEVICE);
-
-                    if (pP2pAdapter)
-                    {
-                        hdd_stop_adapter(pHddCtx, pP2pAdapter, VOS_TRUE);
-                        hdd_deinit_adapter(pHddCtx, pP2pAdapter, TRUE);
-                        hdd_close_adapter(pHddCtx, pP2pAdapter, VOS_TRUE);
-                    }
                 }
                 //Disable IMPS & BMPS for SAP/GO
                 if(VOS_STATUS_E_FAILURE ==
@@ -20185,4 +20166,3 @@ static struct cfg80211_ops wlan_hdd_cfg80211_ops =
      .abort_scan = wlan_hdd_cfg80211_abort_scan,
 #endif
 };
-
