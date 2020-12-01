@@ -45,10 +45,15 @@ CONFIG_WLAN_OFFLOAD_PACKETS := y
 # Flag to enable hold RX wake lock feature
 CONFIG_WLAN_FEATURE_HOLD_RX_WAKELOCK := n
 
-# To enable CONFIG_QCOM_ESE_UPLOAD, dependent config
-# CONFIG_QCOM_ESE must be enabled.
+# Flag to enable ESE
 CONFIG_QCOM_ESE := n
+ifeq ($(CONFIG_QCOM_ESE),y)
+ifeq ($(WLAN_PROPRIETARY),1)
 CONFIG_QCOM_ESE_UPLOAD := n
+else
+CONFIG_QCOM_ESE_UPLOAD := y
+endif
+endif
 
 # Feature flags which are not (currently) configurable via Kconfig
 
