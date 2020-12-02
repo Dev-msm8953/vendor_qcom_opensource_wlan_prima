@@ -3962,7 +3962,7 @@ limProcessMinChannelTimeout(tpAniSirGlobal pMac)
         {
             // This shouldn't be the case, but when this happens, this timeout should be for the last channelId. 
             // Get the channelNum as close to correct as possible.
-            if(pMac->lim.gpLimMlmScanReq->channelList.channelNumber)
+            if(pMac->lim.gpLimMlmScanReq->channelList.channelNumber != NULL)
             {
                 channelNum = pMac->lim.gpLimMlmScanReq->channelList.channelNumber[pMac->lim.gpLimMlmScanReq->channelList.numChannels - 1];
             }
@@ -4038,7 +4038,7 @@ limProcessMaxChannelTimeout(tpAniSirGlobal pMac)
         }
         else
         {
-            if(pMac->lim.gpLimMlmScanReq->channelList.channelNumber)
+            if(pMac->lim.gpLimMlmScanReq->channelList.channelNumber != NULL)
             {
                 channelNum = pMac->lim.gpLimMlmScanReq->channelList.channelNumber[pMac->lim.gpLimMlmScanReq->channelList.numChannels - 1];
             }
