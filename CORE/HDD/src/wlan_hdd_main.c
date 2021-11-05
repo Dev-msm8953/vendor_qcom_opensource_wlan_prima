@@ -126,7 +126,6 @@ int wlan_hdd_ftm_start(hdd_context_t *pAdapter);
 #ifdef WLAN_FEATURE_PACKET_FILTERING
 #include "wlan_hdd_packet_filtering.h"
 #endif
-#include <disable.h>
 
 #ifdef MODULE
 #define WLAN_MODULE_NAME  module_name(THIS_MODULE)
